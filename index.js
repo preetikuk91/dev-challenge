@@ -9,11 +9,7 @@ require('./site/index.html')
 // Apply the styles in style.css to the page.
 require('./site/style.css')
 
-var table = require("./es6/table");
-
-// if you want to use es6, you can do something like
-//     require('./es6/myEs6code')
-// here to load the myEs6code.js file, and it will be automatically transpiled.
+var table = require("./es6/table.js");
 
 // Change this to get detailed logging from the stomp library
 global.DEBUG = false
@@ -26,18 +22,13 @@ client.debug = function(msg) {
   }
 }
 
+// To get the data from stomp
 function connectCallback() {
-  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
-  client.subscribe("/fx/prices", table.callback);
+  const tableCls = table.default;
+  const t = new tableCls();
+  client.subscribe("/fx/prices", t.addData);
 }
 
 client.connect({}, connectCallback, function(error) {
   alert(error.headers.message)
 })
-
-
-
-
-
-const exampleSparkline = document.getElementById('example-sparkline')
-Sparkline.draw(exampleSparkline, [1, 2, 3, 6, 8, 20, 2, 2, 4, 2, 3])
