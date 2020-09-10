@@ -23,9 +23,9 @@ describe("test calculateData", () => {
     expect(t.appendChild).toHaveBeenCalled();
     expect(t.renderData).toHaveBeenCalled();
     expect(t.getData).toHaveBeenCalled();
-    const responseHtml = "<div id=\"resp-table-body\"><div class=\"resp-table-row\"><div class=\"table-body-cell\">usdjpy</div><div class=\"table-body-cell\">106.7297012204255</div><div class=\"table-body-cell\">107.25199883791178</div><div class=\"table-body-cell\">-2.8769211401569663</div><div class=\"table-body-cell\">-4.862314256927661</div><div class=\"table-body-cell\"><span></span></div></div></div>";
-
-    expect(document.body.innerHTML).toBe(responseHtml);
+    expect(document.getElementsByClassName('table-body-cell')).toBeTruthy();
+    expect(document.getElementsByClassName('table-body-cell')).toHaveLength(6);
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 
 });
